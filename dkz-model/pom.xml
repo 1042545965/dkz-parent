@@ -15,7 +15,7 @@
 			<optional>true</optional>
 			<version>1.0.5</version>
 		</dependency>
-		<!-- MP 核心库 -->
+		<!-- MP 核心库  , 应为在consumer 当中也引用了model , 所以需要去掉maven的依赖传递-->
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus</artifactId>

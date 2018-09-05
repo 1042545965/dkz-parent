@@ -46,13 +46,13 @@
                     <encoding>UTF-8</encoding>  
                 </configuration>  
             </plugin>  
-        </plugins>  
+        </plugins>
     </build> 
     <modules>
     	<module>dkz-api</module>
     	<module>dkz-provide</module>
-    	<module>dkz-service</module>
     	<module>dkz-server</module>
     	<module>dkz-model</module>
+    	<module>dkz-common</module>
     </modules>
 </project>

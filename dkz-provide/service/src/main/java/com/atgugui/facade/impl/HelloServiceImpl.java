@@ -22,7 +22,7 @@ public class HelloServiceImpl implements HelloService {
 	public String getStr() {
 		Employee empById = employeeMapper.getEmpById(1);
 		System.out.println(empById);
-		return "this is dubbo";
+		return "this is dubbo , 哈哈哈看看是不是utf-8";
 	}
 
 	@Override

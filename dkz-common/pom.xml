@@ -5,11 +5,5 @@
     <artifactId>dkz-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>dkz-server</artifactId>
-  <packaging>pom</packaging>
-  <modules>
-  	<module>consumer</module>
-  	<module>web</module>
-  	<module>cache</module>
-  </modules>
+  <artifactId>dkz-common</artifactId>
 </project>
