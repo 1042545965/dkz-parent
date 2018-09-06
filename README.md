@@ -1,4 +1,11 @@
-# dkz-parent 项目结构图
+# 欢迎来到dkz-parent
+## 该项目基于springboot 整合了dubbo , mybatis , redis
+### dubbo部分
+#### dubbo 部分进行模块数据的基础封装 , 整合了mybatis mybatis-plus mybatis注解版本,提高代码可读性,以及开发效率,且不影响对原生mybatis的使用
+### consumer部分
+### 对provide进行消费,处理前端请求.同时集成了缓存部分.
+
+## dkz-parent 项目结构图
 >dkz-parent  
 >>dkz-api
 
