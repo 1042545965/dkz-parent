@@ -17,8 +17,13 @@
 
 >>>service --进行基础的数据封装,并且提供服务
 
+
 >>dkz-server
->>>cache -- 缓存处理基类 , 消费服务 , 由consumer进行业务处理的时候进行调用,应为spring的注解缓存是基于aop的,  所以需要分开调用  
+>>>cache -- 缓存处理基类  
+
+>>>>com.atgugui.cache --需要调用缓存的方法
+
+>>>>com.atgugui.config -- 缓存基本配置,使用的是bean注入的配置方式
 
 >>>consumer -- 消费服务,并且进行业务逻辑处理
 
