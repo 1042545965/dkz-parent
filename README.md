@@ -22,6 +22,8 @@
 >>dkz-provide
 >>>jdbc --进行数据访问
 
+>>>>resources dkz.sql 目前测试的数据表结构
+ 
 >>>service --进行基础的数据封装,并且提供服务
 
 
