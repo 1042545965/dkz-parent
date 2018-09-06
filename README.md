@@ -1,4 +1,4 @@
-# dkz-parent 项目结构,以及结构思路
+# dkz-parent 项目结构图
 >dkz-parent  
 >>dkz-api
 
