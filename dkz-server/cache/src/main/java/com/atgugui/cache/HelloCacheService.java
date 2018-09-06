@@ -17,7 +17,7 @@ import com.atgugui.model.Employee;
  * @program: spring-boot
  * @description: 所有走缓存的基类查询全部都要放置在这里面 , 分模块创建缓存
  * @author: conlon
- * @create: 2018-08-20 10:42
+ * @create:  2018-08-20 10:42
  **/
 @Service
 @CacheConfig(cacheNames  = "helloCacheService")
