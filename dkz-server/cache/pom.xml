@@ -19,5 +19,41 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
+        
+        <dependency>
+			<groupId>com.alibaba.boot</groupId>
+			<artifactId>dubbo-spring-boot-starter</artifactId>
+			<scope>compile</scope><!-- 防止出现依赖传递的错误 -->
+			<optional>true</optional>
+			<version>0.1.0</version>
+		</dependency>
+
+		<!--引入zookeeper的客户端工具-->
+		<!-- https://mvnrepository.com/artifact/com.github.sgroschupf/zkclient -->
+		<dependency>
+			<groupId>com.github.sgroschupf</groupId>
+			<artifactId>zkclient</artifactId>
+			<scope>compile</scope><!-- 防止出现依赖传递的错误 -->
+			<optional>true</optional>
+			<version>0.1</version>
+		</dependency>
+        
+        <dependency>
+        	<groupId>com.ateguigu</groupId>
+        	<artifactId>dkz-api</artifactId>
+        	<scope>compile</scope><!-- 防止出现依赖传递的错误 -->
+			<optional>true</optional>
+        	<version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+        	<groupId>com.ateguigu</groupId>
+        	<artifactId>dkz-model</artifactId>
+        	<version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+        	<groupId>com.ateguigu</groupId>
+        	<artifactId>dkz-common</artifactId>
+        	<version>0.0.1-SNAPSHOT</version>
+        </dependency>
   </dependencies>
 </project>

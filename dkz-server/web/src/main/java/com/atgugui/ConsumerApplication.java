@@ -2,6 +2,7 @@ package com.atgugui;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 /**
  * 1、引入依赖‘
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 3、引用服务
  */
 @SpringBootApplication
+@EnableCaching //开启基于注解的缓存的必要操作
 public class ConsumerApplication {
 
 	public static void main(String[] args) {
