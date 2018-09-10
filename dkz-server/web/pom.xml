@@ -29,11 +29,11 @@
 			<!-- 资源根目录排除各环境的配置，使用单独的资源目录来指定 -->
 			<directory>src/main/resources</directory>
 			<includes>
-				<include>application.properties</include>
 				<include>mybatis/*</include>
 				<include>mybatis/mapper/*</include>
 			</includes>
 			<excludes>
+				<exclude>evn/local/*</exclude>
 				<exclude>evn/dev/*</exclude>
 				<exclude>evn/pro/*</exclude>
 				<exclude>evn/test/*</exclude>
@@ -56,6 +56,16 @@
   
   			<!-- mvn clean package -U -DskipTests -Ptest -->
 			    <profiles>  
+				    <profile>  
+					        <id>local</id>  
+					        <properties>  
+					            <profiles.active>local</profiles.active>  
+					            <deploy.url>http://localhost:9001/</deploy.url>  
+					        </properties>  
+					        <activation>  
+					            <activeByDefault>true</activeByDefault>  
+					        </activation>  
+					    </profile>  
 				    <!--  本地开发环境-->  
 				    <profile>  
 				        <id>dev</id>  
@@ -63,9 +73,6 @@
 				            <profiles.active>dev</profiles.active>  
 				            <deploy.url>http://localhost:9001/</deploy.url>  
 				        </properties>  
-				        <activation>  
-				            <activeByDefault>true</activeByDefault>  
-				        </activation>  
 				    </profile>  
 				    <!--  220环境-->  
 				    <profile>  
