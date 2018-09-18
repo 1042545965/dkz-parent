@@ -36,7 +36,7 @@ public class SendController {
     		Employee hello = helloService.insert();
     		return BaseResult.newSuccess(hello);
 		} catch (BaseException e) {//捕获自定义异常,并且获取code吗
-			return BaseResult.newFailed(e.getcode(),e.getMessage());
+			return BaseResult.newFailed(e.getStateEnum());
 		}catch (Exception e) {//运行时异常同意抛出
 			return BaseResult.newFailed(StateEnum.ERROR_SYSTEM);
 		}
