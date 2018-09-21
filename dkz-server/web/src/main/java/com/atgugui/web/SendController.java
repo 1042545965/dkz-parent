@@ -12,18 +12,25 @@ import com.atgugui.exceptions.BaseException;
 import com.atgugui.model.Employee;
 import com.atgugui.result.BaseResult;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+
  
 ///**
 // * @author zhuzhe
 // * @date 2018/5/25 16:00
 // * @email 1529949535@qq.com
 // */
+@Api("swagger hello")
 @RestController
 public class SendController {
  
 	@Autowired
 	private HelloService helloService;
 	
+	@ApiOperation(value = "根据id查询",notes = "查询")
+	@ApiImplicitParam(name ="id",value = "id",paramType = "path",required = true,dataType = "String")
     @GetMapping("/send")
     public String send(){
     	String hello = helloService.hello();
@@ -37,7 +44,7 @@ public class SendController {
     		return BaseResult.newSuccess(hello);
 		} catch (BaseException e) {//捕获自定义异常,并且获取code吗
 			return BaseResult.newFailed(e.getStateEnum());
-		}catch (Exception e) {//运行时异常同意抛出
+		}catch (Exception e) {//运行时异常统一抛出
 			return BaseResult.newFailed(StateEnum.ERROR_SYSTEM);
 		}
     }
