@@ -6,14 +6,19 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>dkz-model</artifactId>
+  <properties>
+  		<mybatisplus-boot.version>1.0.5</mybatisplus-boot.version>
+  		<mybatisplus.version>2.1.8</mybatisplus.version>
+  		<fastjson.version>1.2.47</fastjson.version>
+  		<guava.version>25.1-jre</guava.version>
+  </properties>
   
   <dependencies>
   		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatisplus-spring-boot-starter</artifactId>
 			<scope>compile</scope>
-			<optional>true</optional>
-			<version>1.0.5</version>
+			<version>${mybatisplus-boot.version}</version>
 		</dependency>
 		<!-- MP 核心库  , 应为在consumer 当中也引用了model , 所以需要去掉maven的依赖传递-->
 		<dependency>
@@ -21,7 +26,28 @@
 			<artifactId>mybatis-plus</artifactId>
 			<scope>compile</scope>
 			<optional>true</optional>
-			<version>2.1.8</version>
+			<version>${mybatisplus.version}</version>
 		</dependency>
+		
+  		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<scope>compile</scope>
+		</dependency>
+  		
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>${fastjson.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+		<dependency>
+		    <groupId>com.google.guava</groupId>
+		    <artifactId>guava</artifactId>
+		    <version>${guava.version}</version>
+		</dependency>
+		
   </dependencies>
 </project>

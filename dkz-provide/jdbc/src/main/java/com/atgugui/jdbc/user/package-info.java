@@ -5,4 +5,4 @@
  * @author dkzadmin
  *
  */
-package com.atgugui.enums.user;
+package com.atgugui.jdbc.user;
