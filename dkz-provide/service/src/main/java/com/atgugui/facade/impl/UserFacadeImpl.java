@@ -1,14 +1,18 @@
 package com.atgugui.facade.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.atgugui.enums.exceptionals.StateEnum;
 import com.atgugui.exceptions.BaseException;
 import com.atgugui.facade.UserFacade;
 import com.atgugui.jdbc.user.BizUserMapper;
 import com.atgugui.model.user.BizUser;
 
+@Component
+@Service
 public class UserFacadeImpl implements UserFacade {
 
 	@Autowired

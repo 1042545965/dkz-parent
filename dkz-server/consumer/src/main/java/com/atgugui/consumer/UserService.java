@@ -1,9 +1,12 @@
 package com.atgugui.consumer;
 
+import com.atgugui.model.user.BizUser;
 import com.atgugui.result.BaseResult;
 
 public interface UserService {
 
 	BaseResult userLogin(String userName, String password);
+
+	BaseResult userRegister(BizUser bizUser);
 
 }

@@ -18,6 +18,7 @@
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatisplus-spring-boot-starter</artifactId>
 			<scope>compile</scope>
+			<optional>true</optional>
 			<version>${mybatisplus-boot.version}</version>
 		</dependency>
 		<!-- MP 核心库  , 应为在consumer 当中也引用了model , 所以需要去掉maven的依赖传递-->
@@ -33,6 +34,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 			<scope>compile</scope>
+			<optional>true</optional>
 		</dependency>
   		
 		<dependency>
@@ -40,6 +42,7 @@
 			<artifactId>fastjson</artifactId>
 			<version>${fastjson.version}</version>
 			<scope>compile</scope>
+			<optional>true</optional>
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->

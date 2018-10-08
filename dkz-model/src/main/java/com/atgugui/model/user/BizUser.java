@@ -15,14 +15,14 @@ import com.baomidou.mybatisplus.annotations.TableName;
  * 用户信息表
  * </p>
  *
- * @author jobob123
+ * @author conlon
  * @since 2018-09-30
  */
 @TableName("biz_user")
 public class BizUser implements Serializable {
 
 
-    /** 有些没有生产@@TableField 是应为key 和数据库一样 , 无所谓啦
+    /** 有些没有生产@TableField 是应为key 和数据库一样 , 无所谓啦
 	 * 
 	 */
 	private static final long serialVersionUID = -3773638383520538489L;
@@ -31,11 +31,6 @@ public class BizUser implements Serializable {
      */
     @TableId(value = "user_id", type = IdType.AUTO)
     private Integer userId;
-    /**
-     * 部门ID
-     */
-    @TableField("dept_id")
-    private Integer deptId;
     /**
      * 登录账号
      */
@@ -123,12 +118,6 @@ public class BizUser implements Serializable {
 	}
 	public void setUserId(Integer userId) {
 		this.userId = userId;
-	}
-	public Integer getDeptId() {
-		return deptId;
-	}
-	public void setDeptId(Integer deptId) {
-		this.deptId = deptId;
 	}
 	public String getLoginName() {
 		return loginName;

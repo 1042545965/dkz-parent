@@ -1,11 +1,10 @@
 package com.atgugui.consumer.impl;
 
-import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -18,8 +17,10 @@ import com.atgugui.common.utils.MessageUtils;
 import com.atgugui.common.utils.ServletUtils;
 import com.atgugui.config.RedisUtil;
 import com.atgugui.consumer.UserService;
+import com.atgugui.enums.exceptionals.StateEnum;
 import com.atgugui.enums.exceptionals.user.UserExceptionEnum;
 import com.atgugui.enums.user.UserStatus;
+import com.atgugui.exceptions.BaseException;
 import com.atgugui.exceptions.user.UserException;
 import com.atgugui.facade.UserFacade;
 import com.atgugui.manager.AsyncManager;
@@ -27,6 +28,7 @@ import com.atgugui.manager.factory.AsyncFactory;
 import com.atgugui.model.user.BizUser;
 import com.atgugui.result.BaseResult;
 
+@Service
 public class UserServiceImpl implements UserService {
     @Reference
     private UserFacade userFacade; //注入消费者
@@ -34,21 +36,35 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RedisUtil redisUtil; //注入redis
     
-    private Map<String, AtomicInteger> map ; // 记录用户登录密码输入失败次数
-    
+    //用户注册
+	@Override
+	public BaseResult userRegister(BizUser bizUser) {
+		if (AppUtil.isNull(bizUser) || AppUtil.isNull(bizUser.getEmail()) ||
+				AppUtil.isNull(bizUser.getLoginName()) || AppUtil.isNull(bizUser.getPhonenumber()) ||
+				AppUtil.isNull(bizUser.getUserName()) || AppUtil.isNull(bizUser.getSex()) || AppUtil.isNull(bizUser.getPassword())) 
+		{
+			//这里我自己的设想是使用spring的异步操作, 新建一个异步的provide . 这个无所谓不用与业务耦合
+			
+		}
+		return null;
+	}
+	
+	
+	
+	//用户登录
 	@Override
 	public BaseResult userLogin(String userName, String password) {
 		//用户名密码是否为空
 		if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)) 
 		{
-			 AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGIN_FAIL, MessageUtils.message("not.null")));
+			 AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGIN_FAIL, UserExceptionEnum.ERROR_USER_LOGIN_USERNAME_AND_PASSWORD_NONE.getMessage()));
 			 throw new UserException(UserExceptionEnum.ERROR_USER_LOGIN_USERNAME_AND_PASSWORD_NONE);
 		}
 		//验证密码格式是否正确
 		if (!CheckUtil.checkPassword(password))
         {
 			//异步记录用户登录失败的原因
-			AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGIN_FAIL, MessageUtils.message("user.password.not.match")));
+			AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGIN_FAIL, UserExceptionEnum.ERROR_USER_LOGIN_PASSWORD_LENGTH.getMessage()));
 			throw new UserException(UserExceptionEnum.ERROR_USER_LOGIN_PASSWORD_LENGTH);
         }
 		
@@ -71,28 +87,32 @@ public class UserServiceImpl implements UserService {
 		//用户不存在
 		if (user == null)
         {
-            AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGIN_FAIL, MessageUtils.message("user.not.exists")));
+            AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGIN_FAIL, UserExceptionEnum.ERROR_USER_LOGIN_USERNAME_NONE.getMessage()));
             throw new UserException(UserExceptionEnum.ERROR_USER_LOGIN_USERNAME_NONE);
         }
 		//用户已被删除
         if (UserStatus.DELETED.getCode().equals(user.getDelFlag()))
         {
-            AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGIN_FAIL, MessageUtils.message("user.password.delete")));
-            throw new UserException(UserExceptionEnum.ERROR_USER_LOGIN_USERNAME_NONE);
+            AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGIN_FAIL, UserExceptionEnum.ERROR_USER_LOGIN_USERNAME_IS_DELETE.getMessage()));
+            throw new UserException(UserExceptionEnum.ERROR_USER_LOGIN_USERNAME_IS_DELETE);
         }
         //用户被停用
         if (UserStatus.DISABLE.getCode().equals(user.getStatus()))
         {
-            AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGIN_FAIL, MessageUtils.message("user.blocked", user.getRemark())));
-            throw new UserException(UserExceptionEnum.ERROR_USER_LOGIN_USERNAME_NONE);
+            AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGIN_FAIL, UserExceptionEnum.ERROR_USER_LOGIN_USERNAME_STOP_USE.getMessage()));
+            throw new UserException(UserExceptionEnum.ERROR_USER_LOGIN_USERNAME_STOP_USE);
         }
         //校验密码
         validate(bizUser, password);
         AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success")));
         bizUser.setLoginIp(ServletUtils.getIP());
         bizUser.setLoginDate(DateUtils.getNowDate());
+        //修改最后登录时间和ip
         int i = userFacade.updateBizUser(bizUser);
-		return null;
+        if (i != 1 ) {
+        	 throw new BaseException(StateEnum.ERROR_SYSTEM);
+		}
+		return BaseResult.newSuccess(bizUser);
 	}
 	
 	
@@ -102,20 +122,20 @@ public class UserServiceImpl implements UserService {
 		atomicInteger = AppUtil.isNull(atomicInteger)?new AtomicInteger(0):atomicInteger;
 		//超过限制登录次数
 		if (atomicInteger.incrementAndGet() > UserConstants.USER_PASSWORD_COUNT_SUM) {
-			AsyncManager.me().execute(AsyncFactory.recordLogininfor(user.getUserName(), Constants.LOGIN_FAIL, MessageUtils.message("user.password.retry.limit.exceed", atomicInteger)));
+			AsyncManager.me().execute(AsyncFactory.recordLogininfor(user.getUserName(), Constants.LOGIN_FAIL, UserExceptionEnum.ERROR_USER_LOGIN_USERNAME_PASS_NUMBER.getMessage()+atomicInteger));
 			throw new UserException(UserExceptionEnum.ERROR_USER_LOGIN_USERNAME_PASS_NUMBER);
 		}
 		//密码校验失败
 		if (!matches(user, password)) 
 		{
-			AsyncManager.me().execute(AsyncFactory.recordLogininfor(user.getUserName(), Constants.LOGIN_FAIL, MessageUtils.message("user.password.retry.limit.count", atomicInteger)));
+			AsyncManager.me().execute(AsyncFactory.recordLogininfor(user.getUserName(), Constants.LOGIN_FAIL, UserExceptionEnum.ERROR_USER_LOGIN_PASSWORD_ERROR.getMessage()+atomicInteger));
 			//放入缓存并且定时
 			redisUtil.lSet(UserConstants.USER_PASSWORD_COUNT_ERROR+user.getUserId(), atomicInteger, UserConstants.USER_ACCOUNT_FREEZE_TIME*60);
-			throw new UserException(UserExceptionEnum.ERROR_USER_LOGIN_USERNAME_PASS_NUMBER);
+			throw new UserException(UserExceptionEnum.ERROR_USER_LOGIN_PASSWORD_ERROR);
 		}
 	};
 	
-	/** md5 盐值加密校验
+	/** md5 盐值加密校验 , 这里用的是shiro提供的md5 盐值加密方式
 	 * @param user
 	 * @param newPassword
 	 * @return
@@ -130,4 +150,5 @@ public class UserServiceImpl implements UserService {
     {
         return new Md5Hash(username + password + salt).toHex().toString();
     }
+
 }

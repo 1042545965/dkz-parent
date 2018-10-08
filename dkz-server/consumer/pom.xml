@@ -6,6 +6,11 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>consumer</artifactId>
+  
+  <properties>
+  		<mybatisplus-boot.version>1.0.5</mybatisplus-boot.version>
+  </properties>
+  
   <dependencies>
   	<dependency>
   		<groupId>com.ateguigu</groupId>
@@ -42,6 +47,14 @@
 			<groupId>com.ateguigu</groupId>
 			<artifactId>dkz-model</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<exclusions>
+	            <exclusion>
+	              <!--被排除的依赖包坐标-->
+	             	<groupId>com.baomidou</groupId>
+					<artifactId>mybatisplus-spring-boot-starter</artifactId>
+					<version>${mybatisplus-boot.version}</version>
+	            </exclusion>
+         	</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.ateguigu</groupId>
