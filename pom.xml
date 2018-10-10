@@ -54,5 +54,6 @@
     	<module>dkz-server</module>
     	<module>dkz-model</module>
     	<module>dkz-common</module>
+    	<module>async-provide</module>
     </modules>
 </project>
