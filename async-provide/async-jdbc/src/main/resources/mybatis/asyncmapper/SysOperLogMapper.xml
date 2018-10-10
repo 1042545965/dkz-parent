@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fx.bcy.dao.SysOperLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.atgugui.model.operlog.SysOperLog">
+        <id column="oper_id" property="operId" />
+        <result column="title" property="title" />
+        <result column="business_type" property="businessType" />
+        <result column="method" property="method" />
+        <result column="operator_type" property="operatorType" />
+        <result column="oper_name" property="operName" />
+        <result column="dept_name" property="deptName" />
+        <result column="oper_url" property="operUrl" />
+        <result column="oper_ip" property="operIp" />
+        <result column="oper_location" property="operLocation" />
+        <result column="oper_param" property="operParam" />
+        <result column="status" property="status" />
+        <result column="error_msg" property="errorMsg" />
+        <result column="oper_time" property="operTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        oper_id AS operId, title, business_type AS businessType, method, operator_type AS operatorType, oper_name AS operName, dept_name AS deptName, oper_url AS operUrl, oper_ip AS operIp, oper_location AS operLocation, oper_param AS operParam, status, error_msg AS errorMsg, oper_time AS operTime
+    </sql>
+
+</mapper>

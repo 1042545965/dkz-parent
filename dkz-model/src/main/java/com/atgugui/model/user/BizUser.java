@@ -5,6 +5,7 @@ import java.io.Serializable;
 import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 
@@ -19,7 +20,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
  * @since 2018-09-30
  */
 @TableName("biz_user")
-public class BizUser implements Serializable {
+public class BizUser extends Model<BizUser> {
 
 
     /** 有些没有生产@TableField 是应为key 和数据库一样 , 无所谓啦
@@ -113,6 +114,13 @@ public class BizUser implements Serializable {
      * 备注
      */
     private String remark;
+    
+    
+    @Override
+    protected Serializable pkVal() {
+        return this.userId;
+    }
+    
 	public Integer getUserId() {
 		return userId;
 	}

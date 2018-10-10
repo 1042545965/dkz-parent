@@ -1,0 +1,63 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.ateguigu</groupId>
+    <artifactId>async-provide</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>async-jdbc</artifactId>
+  
+  
+	 <dependencies>
+		<dependency>
+			<groupId>com.ateguigu</groupId>
+			<artifactId>dkz-model</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	
+		<!-- mybatisplus与springboot整合 -->
+		<!-- 模板引擎 ,mybatisplus进行逆向工程用的 , 也可以用franmarke -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+	
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity-engine-core</artifactId>
+			<version>2.0</version>
+		</dependency>
+	
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatisplus-spring-boot-starter</artifactId>
+			<version>1.0.5</version>
+		</dependency>
+		<!-- MP 核心库 -->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus</artifactId>
+			<version>2.1.8</version>
+		</dependency>
+	
+		<!--mybatis 和 spring 的整合包 , 在整合mybatis 以及plus的时候 ,这个依赖要放置在他们的下面 -->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+	
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+	
+		<!--引入druid -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.1.8</version>
+		</dependency>
+	</dependencies>
+</project>
