@@ -76,5 +76,19 @@ public class IndexController {
 			return BaseResult.newFailed(StateEnum.ERROR_SYSTEM);
 		}
     }
+	
+	@ApiOperation(value = "获取验证码",notes = "验证码")
+    @GetMapping("/validateCode")
+    public BaseResult validateCode(@ApiParam(name = "userPhone", value = "手机号码")  String userPhone){
+		try {
+			return userService.getValidateCode(userPhone);
+		} catch (UserException e) {
+			return BaseResult.newFailed(e.getuserExceptionEnum().getCode() , e.getuserExceptionEnum().getMessage());
+		}catch (Exception e) {
+			//这里可以有一个日志工具类
+			LogUtils.logError(e.getMessage(), e);
+			return BaseResult.newFailed(StateEnum.ERROR_SYSTEM);
+		}
+    }
     
 }

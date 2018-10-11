@@ -9,4 +9,6 @@ public interface UserService {
 
 	BaseResult userRegister(BizUser bizUser);
 
+	BaseResult getValidateCode(String userPhone);
+
 }

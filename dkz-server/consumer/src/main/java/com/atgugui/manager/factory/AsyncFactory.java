@@ -10,6 +10,7 @@ import com.atgugui.common.utils.LogUtils;
 import com.atgugui.common.utils.ServletUtils;
 import com.atgugui.model.log.Logininfor;
 import com.atgugui.model.operlog.OperLog;
+import com.atgugui.model.operlog.SysOperLog;
 
 import eu.bitwalker.useragentutils.UserAgent;
 
@@ -98,4 +99,13 @@ public class AsyncFactory
             }
         };
     }
+    
+    
+    public static SysOperLog getRecordOper(final String title, final Integer businessType , final String message)
+    {
+    	
+		return null;
+    }
+    
+    
 }

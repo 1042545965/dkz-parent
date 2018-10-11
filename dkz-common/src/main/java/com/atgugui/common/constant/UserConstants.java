@@ -87,6 +87,11 @@ public class UserConstants
     public static final String USER_PASSWORD_COUNT_ERROR = "user_password_count_error_";
     public static final int USER_PASSWORD_COUNT_SUM = 10;
     public static final long USER_ACCOUNT_FREEZE_TIME = 30;
+    
+    /**
+     * 用户注册提示用语
+     */
+    public static final String USER_REGISTER_MARKED_WORD = "您的注册验证码为: ";
     /**
      * 手机号码格式限制
      */

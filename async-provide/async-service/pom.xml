@@ -44,7 +44,12 @@
 	  		<artifactId>async-jdbc</artifactId>
 	  		<version>0.0.1-SNAPSHOT</version>
 	  	</dependency>
-	</dependencies>  	
+		<dependency>
+			<groupId>com.ateguigu</groupId>
+			<artifactId>dkz-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+  </dependencies>  	
 	
 	
 	<build>

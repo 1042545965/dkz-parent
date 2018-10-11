@@ -1,5 +1,6 @@
 package com.atgugui.consumer.impl;
 
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -13,7 +14,9 @@ import com.atgugui.common.constant.UserConstants;
 import com.atgugui.common.utils.AppUtil;
 import com.atgugui.common.utils.CheckUtil;
 import com.atgugui.common.utils.DateUtils;
+import com.atgugui.common.utils.LogUtils;
 import com.atgugui.common.utils.MessageUtils;
+import com.atgugui.common.utils.NumberUtil;
 import com.atgugui.common.utils.ServletUtils;
 import com.atgugui.config.RedisUtil;
 import com.atgugui.consumer.UserService;
@@ -22,9 +25,11 @@ import com.atgugui.enums.exceptionals.user.UserExceptionEnum;
 import com.atgugui.enums.user.UserStatus;
 import com.atgugui.exceptions.BaseException;
 import com.atgugui.exceptions.user.UserException;
+import com.atgugui.facade.AsyncFacade;
 import com.atgugui.facade.UserFacade;
 import com.atgugui.manager.AsyncManager;
 import com.atgugui.manager.factory.AsyncFactory;
+import com.atgugui.model.Notify;
 import com.atgugui.model.user.BizUser;
 import com.atgugui.result.BaseResult;
 
@@ -36,15 +41,39 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RedisUtil redisUtil; //注入redis
     
+    @Reference
+    private AsyncFacade asyncFacade; //注入异步provide,记录日志
+    
+    
     //用户注册
+	/* (non-Javadoc)
+	 * @see com.atgugui.consumer.UserService#userRegister(com.atgugui.model.user.BizUser)
+	 */
 	@Override
 	public BaseResult userRegister(BizUser bizUser) {
 		if (AppUtil.isNull(bizUser) || AppUtil.isNull(bizUser.getEmail()) ||
 				AppUtil.isNull(bizUser.getLoginName()) || AppUtil.isNull(bizUser.getPhonenumber()) ||
 				AppUtil.isNull(bizUser.getUserName()) || AppUtil.isNull(bizUser.getSex()) || AppUtil.isNull(bizUser.getPassword())) 
 		{
-			//这里我自己的设想是使用spring的异步操作, 新建一个异步的provide . 这个无所谓不用与业务耦合
-			
+			//这里我自己的设想是使用spring的异步操作, 新建一个异步的provide . 这个无所谓不用与业务耦合 ,
+			 throw new BaseException(StateEnum.ERROR_PARAMETE);
+			//这里注册的话应该是不需要记录日志的
+		}
+		//校验手机号码
+		if (!CheckUtil.maybeMobilePhoneNumber(bizUser.getPhonenumber())) 
+		{
+			 throw new UserException(UserExceptionEnum.ERROR_USER_REGISTER_PHONE_NUMBER_ERROR);
+		}
+		//校验密码格式是否正确
+		if (!CheckUtil.checkPassword(bizUser.getPassword())) 
+		{
+			throw new UserException(UserExceptionEnum.ERROR_USER_REGISTER_PASSWORD_NOT_MATCH_ERROR);
+		}
+		//校验验证码
+		Notify notify = (Notify)redisUtil.get(bizUser.getPhonenumber());
+		if (AppUtil.isNull(notify)) 
+		{//验证码已失效
+			throw new UserException(UserExceptionEnum.ERROR_USER_REGISTER_PASSWORD_NOT_MATCH_ERROR);
 		}
 		return null;
 	}
@@ -150,5 +179,57 @@ public class UserServiceImpl implements UserService {
     {
         return new Md5Hash(username + password + salt).toHex().toString();
     }
+
+
+
+	/* (non-Javadoc)
+	 * 发送验证码  , 并保存到数据库
+	 */
+	@Override
+	public BaseResult getValidateCode(String userPhone) {
+		//校验手机号码
+		if (!CheckUtil.maybeMobilePhoneNumber(userPhone)) 
+		{
+			throw new BaseException(StateEnum.ERROR_PHONE);
+		}
+		//查看手机号是否被注册过
+		BizUser bizUser = new BizUser();
+		bizUser.setPhonenumber(userPhone);
+		BizUser user = userFacade.getUserByUser(bizUser);
+		if (AppUtil.isNotNull(user)) 
+		{//该号码已被注册
+			throw new UserException(UserExceptionEnum.ERROR_USER_REGISTER_PHONE_REPEAT_ERROR);
+		}
+		//查看该手机号码是否在规定的时间内发送过验证码 60s
+		Notify notify = (Notify)redisUtil.get(userPhone);
+		if (AppUtil.isNotNull(notify)) 
+		{
+			Date createTime = notify.getCreateTime();
+			Long time = createTime.getTime();
+			Long currentTimeMillis = System.currentTimeMillis()/1000;
+			if (currentTimeMillis - time <= Constants.VALIDETE_INTERVAL_TIME*60) {
+				throw new UserException(UserExceptionEnum.ERROR_USER_REGISTER_VALIDATE_INTERVAL_TIME_ERROR);
+			}
+		}
+		//随机6位数验证码
+		Long validateCode = NumberUtil.generateRandomNumber(6);
+		Notify notify2 = new Notify();
+		notify2.setContent(UserConstants.USER_REGISTER_MARKED_WORD+validateCode);
+		notify2.setCreateTime(new Date());
+		notify2.setType(10);//10 代表注册
+		//发送成功或者失败我是需要记录一下,这里直接捕捉发送方法的异常来判断  . 目前自己的打算发邮件的方式 !!
+		notify2.setNotifyStatus(1);
+		//将验证码放到缓存当中,并且设置过期时间 30min
+		redisUtil.lSet(userPhone , notify2 , Constants.VALIDETE_TIME_OUT*60);
+		//调用异步方法保存验证码 , 不用回滚,插入失败也没有关系
+		try 
+		{
+			asyncFacade.insertNotify(notify2);
+		} catch (Exception e) 
+		{
+			LogUtils.logError(e.getMessage(), e);
+		}
+		return BaseResult.newSuccess();
+	}
 
 }

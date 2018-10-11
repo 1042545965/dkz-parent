@@ -61,5 +61,14 @@ public class Constants
      * 排序的方向 "desc" 或者 "asc".
      */
     public static String IS_ASC = "isAsc";
-
+    
+    /**
+     * 注册验证码过期时间 单位 min
+     */
+    public static Integer VALIDETE_TIME_OUT = 30;
+    
+    /**
+     * 验证码发送间隔时间 单位 min
+     */
+    public static Integer VALIDETE_INTERVAL_TIME = 1;
 }

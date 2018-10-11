@@ -14,6 +14,9 @@ public enum StateEnum {
 	ERROR_PARAMETE(300, "参数异常"),
 	
     ERROR_SYSTEM(10000, "系统异常"),
+    
+    ERROR_PHONE(20000, "手机号码异常"),
+    
     ERROR_TEST(1000000, "测试异常");
     
 
