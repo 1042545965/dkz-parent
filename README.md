@@ -26,6 +26,11 @@
  
 >>>service --进行基础的数据封装,并且提供服务
 
+>>async-provide --异步服务提供者
+
+>>>async-jdbc --进行数据访问
+
+>>>async-service --进行基础的数据封装,并且提供服务 (数据库脚本接下来在更新)
 
 >>dkz-server
 >>>cache -- 缓存处理基类  
