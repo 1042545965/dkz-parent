@@ -35,19 +35,20 @@ import com.atgugui.result.BaseResult;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Reference
+//    @Reference(mock="DUBBO.ERROR.USER")
+	@Reference
     private UserFacade userFacade; //注入消费者
 	
     @Autowired
     private RedisUtil redisUtil; //注入redis
     
+//    @Reference(mock="DUBBO.ERROR.ASYNC")
     @Reference
     private AsyncFacade asyncFacade; //注入异步provide,记录日志
     
     
-    //用户注册
-	/* (non-Javadoc)
-	 * @see com.atgugui.consumer.UserService#userRegister(com.atgugui.model.user.BizUser)
+	/* 用户注册
+	 * 
 	 */
 	@Override
 	public BaseResult userRegister(BizUser bizUser) {
@@ -75,7 +76,17 @@ public class UserServiceImpl implements UserService {
 		{//验证码已失效
 			throw new UserException(UserExceptionEnum.ERROR_USER_REGISTER_PASSWORD_NOT_MATCH_ERROR);
 		}
-		return null;
+		//该手机号码是否被注册过
+		BizUser bizUser2 = new BizUser();
+		bizUser2.setPhonenumber(bizUser.getPhonenumber());
+		BizUser userByUser = userFacade.getUserByUser(bizUser2);
+		if (AppUtil.isNotNull(userByUser)) 
+		{//该号码已被注册
+			throw new UserException(UserExceptionEnum.ERROR_USER_REGISTER_PHONE_REPEAT_ERROR);
+		}
+		//注册用户
+		userFacade.insertBizUser(bizUser);
+		return BaseResult.newSuccess();
 	}
 	
 	
@@ -182,7 +193,7 @@ public class UserServiceImpl implements UserService {
 
 
 
-	/* (non-Javadoc)
+	/* 
 	 * 发送验证码  , 并保存到数据库
 	 */
 	@Override
@@ -214,6 +225,7 @@ public class UserServiceImpl implements UserService {
 		//随机6位数验证码
 		Long validateCode = NumberUtil.generateRandomNumber(6);
 		Notify notify2 = new Notify();
+		notify2.setPhoneNumber(userPhone);
 		notify2.setContent(UserConstants.USER_REGISTER_MARKED_WORD+validateCode);
 		notify2.setCreateTime(new Date());
 		notify2.setType(10);//10 代表注册

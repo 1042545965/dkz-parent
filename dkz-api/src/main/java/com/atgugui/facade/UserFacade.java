@@ -7,5 +7,7 @@ public interface UserFacade {
 	BizUser getUserByUser(BizUser bizUser);
 
 	int updateBizUser(BizUser bizUser);
+
+	int insertBizUser(BizUser bizUser);
 	
 }

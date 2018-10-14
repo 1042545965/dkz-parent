@@ -3,6 +3,8 @@ package com.atgugui.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.atgugui.common.utils.LogUtils;
@@ -77,9 +79,14 @@ public class IndexController {
 		}
     }
 	
+	/**直接使用post发送请求就可以了 , post作为新增的方法
+	 * 仔细去了解了一下 restful的api put 和delete 还需要去设置 , 暂时不倒腾.
+	 * @param userPhone
+	 * @return
+	 */
 	@ApiOperation(value = "获取验证码",notes = "验证码")
-    @GetMapping("/validateCode")
-    public BaseResult validateCode(@ApiParam(name = "userPhone", value = "手机号码")  String userPhone){
+    @PostMapping("/validateCode/{userPhone}")
+    public BaseResult validateCode(@ApiParam(name = "userPhone", value = "手机号码") @PathVariable String userPhone){
 		try {
 			return userService.getValidateCode(userPhone);
 		} catch (UserException e) {

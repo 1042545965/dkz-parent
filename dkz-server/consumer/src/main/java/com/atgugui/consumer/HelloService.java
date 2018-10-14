@@ -14,7 +14,8 @@ import com.atgugui.model.Employee;
 @Service
 public class HelloService{
 
-    @Reference
+//	@Reference(mock="DUBBO.ERROR.HELLO")
+	@Reference
     private HelloFacade helloFacade; //注入消费者
     
     @Autowired

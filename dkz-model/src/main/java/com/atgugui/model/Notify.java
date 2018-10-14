@@ -15,8 +15,8 @@ import com.baomidou.mybatisplus.annotations.TableName;
  * 
  * </p>
  *
- * @author wangqichang123
- * @since 2018-10-11
+ * @author conlon123
+ * @since 2018-10-12
  */
 @TableName("notify")
 public class Notify extends Model<Notify> {
@@ -29,6 +29,8 @@ public class Notify extends Model<Notify> {
      * 10 注册
      */
     private Integer type;
+    @TableField("phone_number")
+    private String phoneNumber;
     /**
      * 验证码详情
      */
@@ -41,9 +43,6 @@ public class Notify extends Model<Notify> {
     @TableField("create_time")
     private Date createTime;
 
-    
-    
-    
 
     @Override
     protected Serializable pkVal() {
@@ -51,15 +50,9 @@ public class Notify extends Model<Notify> {
     }
 
 
-
-
-
 	public Long getId() {
 		return id;
 	}
-
-
-
 
 
 	public void setId(Long id) {
@@ -67,15 +60,9 @@ public class Notify extends Model<Notify> {
 	}
 
 
-
-
-
 	public Integer getType() {
 		return type;
 	}
-
-
-
 
 
 	public void setType(Integer type) {
@@ -83,7 +70,14 @@ public class Notify extends Model<Notify> {
 	}
 
 
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
 
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
 
 	public String getContent() {
@@ -91,15 +85,9 @@ public class Notify extends Model<Notify> {
 	}
 
 
-
-
-
 	public void setContent(String content) {
 		this.content = content;
 	}
-
-
-
 
 
 	public Integer getNotifyStatus() {
@@ -107,15 +95,9 @@ public class Notify extends Model<Notify> {
 	}
 
 
-
-
-
 	public void setNotifyStatus(Integer notifyStatus) {
 		this.notifyStatus = notifyStatus;
 	}
-
-
-
 
 
 	public Date getCreateTime() {
@@ -123,11 +105,11 @@ public class Notify extends Model<Notify> {
 	}
 
 
-
-
-
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
+    
+    
+    
 }

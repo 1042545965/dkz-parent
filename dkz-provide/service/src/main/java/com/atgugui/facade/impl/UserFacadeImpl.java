@@ -35,4 +35,14 @@ public class UserFacadeImpl implements UserFacade {
 		return updateById;
 	}
 
+	@Override
+	@Transactional
+	public int insertBizUser(BizUser bizUser) {
+		Integer insert = bizUserMapper.insert(bizUser);
+		if (insert != 1) {
+			throw new BaseException(StateEnum.ERROR_SYSTEM);
+		}
+		return insert;
+	}
+
 }
