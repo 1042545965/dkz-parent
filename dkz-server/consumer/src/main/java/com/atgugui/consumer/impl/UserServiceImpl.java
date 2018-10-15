@@ -108,7 +108,7 @@ public class UserServiceImpl implements UserService {
 			throw new UserException(UserExceptionEnum.ERROR_USER_LOGIN_PASSWORD_LENGTH);
         }
 		
-		//查询用户的信息
+		//查询用户的信息 , 感觉这里的查询会有点问题  , 暂时先记录一下
 		BizUser bizUser = new BizUser();
 		bizUser.setUserName(userName);
 		BizUser user = userFacade.getUserByUser(bizUser);
