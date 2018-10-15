@@ -11,6 +11,7 @@
 		<commons.io.version>2.5</commons.io.version>
 		<org.apache.version>3.7</org.apache.version>
 		<shiro.version>1.4.0</shiro.version>
+		<mybatisplus.version>2.1.8</mybatisplus.version>
 	</properties>
   <dependencies>
   		<dependency>
@@ -19,10 +20,25 @@
 			<scope>compile</scope>
 		</dependency>
   		
+  		<!-- MP 核心库  , 应为使用了mabatis-plus的 active 的写法 , 用到了这个类,那么就要添加这个依赖-->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus</artifactId>
+			<scope>compile</scope>
+			<optional>true</optional>
+			<version>${mybatisplus.version}</version>
+		</dependency>
+  		
   		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		
+		<!-- 使用spring  的aop切面设置 -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
 		
 		<dependency>

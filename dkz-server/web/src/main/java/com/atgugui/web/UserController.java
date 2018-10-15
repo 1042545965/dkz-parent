@@ -1,21 +1,10 @@
 package com.atgugui.web;
  
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.atgugui.consumer.HelloService;
-import com.atgugui.enums.exceptionals.StateEnum;
-import com.atgugui.exceptions.BaseException;
-import com.atgugui.model.Employee;
-import com.atgugui.result.BaseResult;
 
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 
  
 ///**

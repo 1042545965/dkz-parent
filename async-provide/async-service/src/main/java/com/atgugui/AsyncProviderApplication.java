@@ -3,6 +3,7 @@ package com.atgugui;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * 1、将服务提供者注册到注册中心
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan("com.atgugui.asyn.jdbc")
+@EnableAsync //springboot 开启异步操作
 public class AsyncProviderApplication {
 
 	public static void main(String[] args) {

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.atgugui.annotation.Log;
 import com.atgugui.consumer.HelloService;
 import com.atgugui.enums.exceptionals.StateEnum;
 import com.atgugui.exceptions.BaseException;
@@ -29,11 +30,13 @@ public class SendController {
 	@Autowired
 	private HelloService helloService;
 	
+	@Log(title="测试LOG自定义注解")
 	@ApiOperation(value = "根据id查询",notes = "查询")
 	@ApiImplicitParam(name ="id",value = "id",paramType = "path",required = true,dataType = "String")
     @GetMapping("/send")
     public String send(){
-    	String hello = helloService.hello();
+//    	String hello = helloService.hello();
+		String hello = "hello";
         return hello;
     }
     

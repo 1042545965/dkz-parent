@@ -14,7 +14,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
  * 操作日志记录
  * </p>
  *
- * @author wangqichang123
+ * @author conlon
  * @since 2018-10-09
  */
 @TableName("sys_oper_log")
