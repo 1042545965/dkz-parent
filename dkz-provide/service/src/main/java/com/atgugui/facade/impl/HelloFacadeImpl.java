@@ -28,7 +28,7 @@ public class HelloFacadeImpl implements HelloFacade {
 	@Override
 	@Transactional
 	public Employee insert(Employee employeein) throws BaseException {
-		//employeein.getId().toString(); //测试provide全局异常
+		employeein.getId().toString(); //测试provide全局异常
 		employeeMapper.insert(employeein);
 		if (true) {
 			throw new BaseException(StateEnum.ERROR_TEST);//测试自定义异常

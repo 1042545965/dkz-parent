@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.commons.lang3.text.StrBuilder;
 
 import com.atgugui.common.support.StrFormatter;
+import com.google.gson.Gson;
 
 
 /**
@@ -20,6 +21,13 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
 
     /** 下划线 */
     private static final char SEPARATOR = '_';
+    
+    private static Gson gson ;
+    static {
+        if (gson == null) {
+            gson = new Gson();
+        }
+    }
 
     /**
      * 获取参数不为空值
@@ -370,5 +378,19 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
             result.append(camel.substring(1).toLowerCase());
         }
         return result.toString();
+    }
+    
+    
+    
+    /** 将字符串转化为对象
+     * @param <T>
+     * @param str
+     * @param strs
+     * @return
+     */
+    public static <T> T strToObj(String strjson , Class<?> T)
+    {
+    	T fromJson = (T) gson.fromJson(strjson, T);
+		return fromJson;
     }
 }

@@ -24,6 +24,7 @@ public class AsyncFacadeImpl implements AsyncFacade {
 	 * 记录用户发送的验证码
 	 */
 	@Override
+	@Async
 	public Integer insertNotify(Notify notify2) {
 		 Integer insert = notifyMapper.insert(notify2);
 		return insert;

@@ -84,6 +84,10 @@ public class UserServiceImpl implements UserService {
 		{//该号码已被注册
 			throw new UserException(UserExceptionEnum.ERROR_USER_REGISTER_PHONE_REPEAT_ERROR);
 		}
+		//密码加密
+		
+		//加入盐值
+		
 		//注册用户
 		userFacade.insertBizUser(bizUser);
 		return BaseResult.newSuccess();

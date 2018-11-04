@@ -11,6 +11,11 @@ public class JedisConstants {
      * 
      */
     public static final String STOCK_PLEDGE_SYSTEM_PARAMS = "STOCK_PLEDGE_SYSTEM_PARAMS";
-
+    
+    
+    /**2018-11-2 18:17:19 博客首页title
+     * 
+     */
+    public static final String HOME_PAGETA_TITLE = "home_pageta_title";
   
 }

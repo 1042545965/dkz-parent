@@ -12,6 +12,7 @@ import com.atgugui.enums.exceptionals.StateEnum;
 import com.atgugui.exceptions.BaseException;
 import com.atgugui.model.Employee;
 import com.atgugui.result.BaseResult;
+import com.atgugui.result.RestResponse;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -42,14 +43,8 @@ public class SendController {
     
     @GetMapping("/insert")
     public BaseResult insert(){
-    	try {
     		Employee hello = helloService.insert();
     		return BaseResult.newSuccess(hello);
-		} catch (BaseException e) {//捕获自定义异常,并且获取code吗
-			return BaseResult.newFailed(e.getStateEnum());
-		}catch (Exception e) {//运行时异常统一抛出
-			return BaseResult.newFailed(StateEnum.ERROR_SYSTEM);
-		}
     }
     
     
@@ -68,4 +63,11 @@ public class SendController {
     	
     }
     
+    
+    
+    @GetMapping("/aaa/{id}")
+    public RestResponse<Employee> getEmp(){
+    	Employee employee = new Employee();
+		return new RestResponse<Employee>(employee);
+    }
 }

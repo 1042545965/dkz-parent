@@ -1,6 +1,8 @@
 package com.atgugui.web;
  
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,11 +10,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.atgugui.common.utils.LogUtils;
+import com.atgugui.consumer.HomePagetaTitleService;
 import com.atgugui.consumer.UserService;
 import com.atgugui.enums.exceptionals.StateEnum;
 import com.atgugui.exceptions.user.UserException;
 import com.atgugui.model.user.BizUser;
 import com.atgugui.result.BaseResult;
+import com.atgugui.result.RestResponse;
+import com.atgugui.vo.TitleVO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -31,6 +36,8 @@ public class IndexController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private HomePagetaTitleService HomePagetaTitleService;
 	
     
     
@@ -98,4 +105,15 @@ public class IndexController {
 		}
     }
     
+	
+	/**直接使用post发送请求就可以了 , post作为新增的方法
+	 * 仔细去了解了一下 restful的api put 和delete 还需要去设置 , 暂时不倒腾.
+	 * @param userPhone
+	 * @return
+	 */
+	@ApiOperation(value = "获取首页表头",notes = "首页表头")
+	 @GetMapping("/homePagetaTitle")
+    public RestResponse<List<TitleVO>> homePagetaTitle(){
+		return HomePagetaTitleService.getHomePagetaTitle();
+    }
 }

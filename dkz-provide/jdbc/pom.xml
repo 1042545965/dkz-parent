@@ -58,5 +58,10 @@
 			<artifactId>druid</artifactId>
 			<version>1.1.8</version>
 		</dependency>
+		<dependency>
+			<groupId>com.ateguigu</groupId>
+			<artifactId>dkz-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
   </dependencies>
 </project>
