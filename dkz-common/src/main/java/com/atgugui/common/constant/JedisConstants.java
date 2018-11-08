@@ -17,5 +17,14 @@ public class JedisConstants {
      * 
      */
     public static final String HOME_PAGETA_TITLE = "home_pageta_title";
-  
+    
+    /**
+     * 使用hset ,根据用户找到对应的token
+     */
+    public static final String SYSTEM_USER_TO_TOKEN = "system_user_to_token";
+    
+    /**
+     * 使用hset ,根据token找到对应的用户
+     */
+    public static final String SYSTEM_TOKEN_TO_USER = "system_token_to_user";
 }

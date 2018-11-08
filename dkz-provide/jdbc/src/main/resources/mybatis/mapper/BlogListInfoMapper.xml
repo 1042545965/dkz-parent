@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atgugui.jdbc.blog.BlogListInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.atgugui.model.blog.BlogListInfo">
+        <id column="id" property="id" />
+        <result column="blog_list_id" property="blogListId" />
+        <result column="blog_info" property="blogInfo" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, blog_list_id AS blogListId, blog_info AS blogInfo, create_time AS createTime
+    </sql>
+
+</mapper>

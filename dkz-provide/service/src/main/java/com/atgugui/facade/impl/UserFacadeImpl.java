@@ -45,4 +45,9 @@ public class UserFacadeImpl implements UserFacade {
 		return insert;
 	}
 
+	@Override
+	public BizUser getBaseUser(Integer userId) {
+		return bizUserMapper.getBaseUser(userId);
+	}
+
 }

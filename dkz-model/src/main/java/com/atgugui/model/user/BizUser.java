@@ -19,7 +19,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
  * @author conlon
  * @since 2018-09-30
  */
-@TableName("biz_user")
+@TableName("blog_biz_user")
 public class BizUser extends Model<BizUser> {
 
 
@@ -32,16 +32,17 @@ public class BizUser extends Model<BizUser> {
      */
     @TableId(value = "user_id", type = IdType.AUTO)
     private Integer userId;
+
     /**
-     * 登录账号
-     */
-    @TableField("login_name")
-    private String loginName;
-    /**
-     * 用户昵称
+     * 用户名
      */
     @TableField("user_name")
     private String userName;
+    /**
+     * 用户名
+     */
+    @TableField("nick_name")
+    private String nickName;
     /**
      * 用户类型（100 客户）
      */
@@ -55,10 +56,6 @@ public class BizUser extends Model<BizUser> {
      * 手机号码
      */
     private String phonenumber;
-    /**
-     * 用户性别（0男 1女 2未知）
-     */
-    private String sex;
     /**
      * 头像路径
      */
@@ -127,12 +124,7 @@ public class BizUser extends Model<BizUser> {
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-	public String getLoginName() {
-		return loginName;
-	}
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
-	}
+
 	public String getUserName() {
 		return userName;
 	}
@@ -156,12 +148,6 @@ public class BizUser extends Model<BizUser> {
 	}
 	public void setPhonenumber(String phonenumber) {
 		this.phonenumber = phonenumber;
-	}
-	public String getSex() {
-		return sex;
-	}
-	public void setSex(String sex) {
-		this.sex = sex;
 	}
 	public String getAvatar() {
 		return avatar;
@@ -234,6 +220,14 @@ public class BizUser extends Model<BizUser> {
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 }

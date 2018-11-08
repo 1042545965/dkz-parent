@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.atgugui.enums.exceptionals.StateEnum;
 import com.atgugui.exceptions.BaseException;
+import com.atgugui.exceptions.user.UserException;
 import com.atgugui.result.BaseResponse;
 
 
@@ -56,6 +57,15 @@ public class GlobalExceptionHandler implements Serializable{
         return new BaseResponse(StateEnum.ERROR_SYSTEM.getCode(), StateEnum.ERROR_SYSTEM.getMessage());
     }
 
+    /**用户部分异常抛出 40000 - 60000
+     * 500- server error
+     */
+    @ExceptionHandler(UserException.class)
+    public BaseResponse userExceptionHandler(HttpServletResponse response, UserException ex) {
+        logger.error(ex.getMessage(), ex);
+        return new BaseResponse(ex.getuserExceptionEnum().getCode(), ex.getuserExceptionEnum().getMessage());
+    }
+    
     /**
      * 缺少请求参数- Bad Request
      */

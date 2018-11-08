@@ -1,14 +1,16 @@
 package com.atgugui.consumer;
 
+import com.atgugui.enums.exceptionals.StateEnum;
 import com.atgugui.model.user.BizUser;
-import com.atgugui.result.BaseResult;
+import com.atgugui.result.RestResponse;
+import com.atgugui.vo.BizUserVo;
 
 public interface UserService {
 
-	BaseResult userLogin(String userName, String password);
+	RestResponse<BizUserVo> userLogin(String userName, String password);
 
-	BaseResult userRegister(BizUser bizUser);
+	RestResponse<BizUser> userRegister(BizUser bizUser);
 
-	BaseResult getValidateCode(String userPhone);
+	RestResponse<StateEnum> getValidateCode(String userPhone);
 
 }

@@ -84,6 +84,13 @@
 			<version>${shiro.version}</version>
 		</dependency>
 		
+		<!-- emoji 表情 -->
+		<dependency>
+		  <groupId>com.github.binarywang</groupId>
+		  <artifactId>java-emoji-converter</artifactId>
+		  <version>0.1.1</version>
+		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 		<dependency>
 		    <groupId>com.google.code.gson</groupId>
