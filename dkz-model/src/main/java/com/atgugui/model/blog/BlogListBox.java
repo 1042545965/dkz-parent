@@ -71,7 +71,12 @@ public class BlogListBox extends Model<BlogListBox> {
     private Date createTime;
     @TableField("update_time")
     private Date updateTime;
-
+    
+    /**删除状态
+     * 1:使用中 , 2 : 删除状态
+     */
+    @TableField("delete_status")
+    private Integer deleteStatus;
 
     @Override
     protected Serializable pkVal() {
@@ -169,16 +174,33 @@ public class BlogListBox extends Model<BlogListBox> {
 	}
 
 
+	public String getBlogType() {
+		return blogType;
+	}
+
+
+	public void setBlogType(String blogType) {
+		this.blogType = blogType;
+	}
+
+
+	public Integer getDeleteStatus() {
+		return deleteStatus;
+	}
+
+
+	public void setDeleteStatus(Integer deleteStatus) {
+		this.deleteStatus = deleteStatus;
+	}
+
+
 	@Override
 	public String toString() {
 		return "BlogListBox [id=" + id + ", userId=" + userId + ", blogName=" + blogName + ", blogDigest=" + blogDigest
 				+ ", blogType=" + blogType + ", createIp=" + createIp + ", readNumber=" + readNumber
 				+ ", commentNumber=" + commentNumber + ", createTime=" + createTime + ", updateTime=" + updateTime
-				+ "]";
+				+ ", deleteStatus=" + deleteStatus + "]";
 	}
 
-    
-    
-    
     
 }

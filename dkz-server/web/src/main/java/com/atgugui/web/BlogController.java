@@ -2,6 +2,7 @@ package com.atgugui.web;
  
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,7 +35,7 @@ public class BlogController {
 	@Autowired
 	private BlogService blogService;
 	
-	@ApiOperation(value = "用户登录接口",notes = "登录")
+	@ApiOperation(value = "保存博客接口",notes = "登录")
 	@ApiImplicitParams({
         @ApiImplicitParam(name = "blogName", value = "博客名称" , required = true ,dataType = "string"),
         @ApiImplicitParam(name = "blogDigest", value = "博客内容", required = true ,dataType = "string"),
@@ -46,6 +47,21 @@ public class BlogController {
 		blogListBox.setCreateTime(new Date());
 		blogListBox.setUpdateTime(new Date());
 		return blogService.insertBlog(blogListBox , token);
+    }
+	
+	
+	@ApiOperation(value = "展示博客列表",notes = "博客列表")
+	@ApiImplicitParams({
+        @ApiImplicitParam(name = "blogName", value = "博客名称" , required = false ,dataType = "string"),
+        @ApiImplicitParam(name = "blogType", value = "博客类型", required = false ,dataType = "string"),
+        @ApiImplicitParam(name = "page", value = "当前页", required = false ,dataType = "string"),
+        @ApiImplicitParam(name = "pageSize", value = "每页条数", required = false ,dataType = "string")
+	})
+    @PostMapping("/getBlogList")
+    public RestResponse<List<BlogListBox>> getBlogList(BlogListBox blogListBox , 
+    		@RequestParam(value="page", required=false, defaultValue= "1")Integer page , 
+    		@RequestParam(value="pageSize", required=false, defaultValue= "10")Integer pageSize){
+		return blogService.getBlogList(blogListBox, page, pageSize);
     }
 	
 }

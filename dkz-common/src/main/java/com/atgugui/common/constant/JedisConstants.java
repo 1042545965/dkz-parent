@@ -27,4 +27,9 @@ public class JedisConstants {
      * 使用hset ,根据token找到对应的用户
      */
     public static final String SYSTEM_TOKEN_TO_USER = "system_token_to_user";
+    
+    /**
+     * 获取博客列表的缓存
+     */
+    public static final String GET_BLOG_LIST_CACHE = "get_blog_list_cache";
 }

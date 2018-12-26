@@ -1,6 +1,8 @@
 package com.atgugui.facade.impl;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -44,6 +46,16 @@ public class BlogFacadeImpl implements BlogFacade{
 			throw new BaseException(StateEnum.ERROR_SYSTEM);
 		}
 		return blogListBox;
+	}
+
+	/** 根据表的列字段获取博客的列表
+	 * @param columnMap
+	 * @return
+	 */
+	@Override
+	public List<BlogListBox> getBlogList(Map<String, Object> columnMap) {
+		blogListBoxMapper.selectByMap(columnMap);
+		return null;
 	}
 	
 }
